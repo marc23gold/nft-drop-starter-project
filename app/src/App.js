@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import twitterLogo from './assets/twitter-logo.svg';
 
@@ -23,6 +23,17 @@ const App = () => {
       console.error(error);
     }
   };
+
+  /*
+   * checks to see if Phantom wallet has been connected
+   */
+  useEffect(() => {
+    const onLoad = async () => {
+      await checkIfWalletIsConnected();
+    };
+    window.addEventListener('load', onLoad);
+    return () => window.removeEventListener('load', onLoad);
+  }, []);
 
   return (
     <div className="App">
