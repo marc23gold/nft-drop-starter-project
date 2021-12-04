@@ -9,7 +9,11 @@ const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 const App = () => {
 
   const checkIfWalletIsConnected = async () => {
-    
+    try {
+      const { solana } = window;
+
+      if
+    }
   }
 
   return (
