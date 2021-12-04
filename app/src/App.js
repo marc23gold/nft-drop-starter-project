@@ -12,9 +12,17 @@ const App = () => {
     try {
       const { solana } = window;
 
-      if
+      if(solana) {
+        if(solana.isPhantom) {
+          console.log('Phantom wallet found!');
+        }
+      } else {
+        alert('Solana object not found! Get a Phantom Wallet');
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
   return (
     <div className="App">
