@@ -7,9 +7,14 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
-
+  /**
+   * function is checking the window object in DOM to see 
+   * if the Phantom wallet extension has injected the solana object
+   * If we do have a solana object, we can also check to see if it's a Phantom Wallet
+   */
   const checkIfWalletIsConnected = async () => {
     try {
+      //checking the window object in our DOM for the solana object
       const { solana } = window;
 
       if(solana) {
