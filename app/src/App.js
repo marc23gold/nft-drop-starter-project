@@ -7,6 +7,11 @@ const TWITTER_HANDLE = '_buildspace';
 const TWITTER_LINK = `https://twitter.com/${TWITTER_HANDLE}`;
 
 const App = () => {
+
+  /**
+   * state
+   */
+  const [walletAddress, setWalletAddress] = useState(null);
   /**
    * function is checking the window object in DOM to see 
    * if the Phantom wallet extension has injected the solana object
@@ -30,6 +35,10 @@ const App = () => {
           'Connected with Public Key: ',
           response.publicKey.toString()
         );
+        /**
+         * Set the user's publicKey in state to be used later!
+         */
+        setWalletAddress(response.publicKey.toString());
       } else {
         alert('Solana object not found! Get a Phantom Wallet');
       }
@@ -42,7 +51,15 @@ const App = () => {
    * define method so code doesn't break
    * 
    */
-  const connectWallet = async () => {};
+  const connectWallet = async () => {
+    const { solana } = window;
+
+    if (solana) {
+      const response = await solana.connect();
+      console.log('Connected with Public Key: ', response.publicKey.toString());
+      setWalletAddress(response.publicKey.toString());
+    }
+  };
 
   /**
    * Render this UI when the user hasn't connected 
@@ -73,7 +90,7 @@ const App = () => {
           <p className="header">🍭 Candy Drop</p>
           <p className="sub-text">NFT drop machine with fair mint</p>
           {/**Render your connect to wallet button right here */}
-          {renderNotConnectedContainer()}
+          {!walletAddress && renderNotConnectedContainer()}
         </div>
         <div className="footer-container">
           <img alt="Twitter Logo" className="twitter-logo" src={twitterLogo} />
